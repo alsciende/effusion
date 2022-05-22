@@ -1,23 +1,33 @@
 security:
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
-    password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    enable_authenticator_manager: true
+#    password_hashers:
+#        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     providers:
-        users_in_memory: { memory: null }
+#        app_user_provider:
+#            entity:
+#                class: App\Entity\User
+#                property: email
+        oauth_hwi:
+            id: hwi_oauth.user.provider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
-            provider: users_in_memory
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            pattern: ^/
+            provider: oauth_hwi
+            oauth:
+                resource_owners:
+                    auth0: "/auth0/callback"
+                login_path:        /
+                use_forward:  false
+                failure_path:      /
+                oauth_user_provider:
+                    service: oauth_hwi
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
