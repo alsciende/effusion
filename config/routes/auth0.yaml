@@ -1,2 +1,5 @@
 auth0_login:
-  path: /login/check-auth0
+  path: /auth0/callback
+
+auth0_logout:
+  path: /auth0/logout
