@@ -18,12 +18,12 @@ security:
             provider: oauth_hwi
             oauth:
                 resource_owners:
-                    auth0: "/auth0/callback"
-                login_path:        /
+                    auth0: "/login/check-auth0"
+                login_path:        /login
                 use_forward:  false
-                failure_path:      /
+                failure_path:      /login
                 oauth_user_provider:
-                    service: oauth_hwi
+                    service: hwi_oauth.user.provider
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -32,8 +32,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/connect, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:

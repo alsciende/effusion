@@ -9,4 +9,4 @@ hwi_oauth:
             client_id:           '%env(AUTH0_CLIENT_ID)%'
             client_secret:       '%env(AUTH0_CLIENT_SECRET)%'
             base_url:            'https://%env(AUTH0_DOMAIN)%'
-#            scope:               "email"
+            scope:               'openid profile email'
