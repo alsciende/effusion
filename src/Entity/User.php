@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 class User implements UserInterface
 {
-    private ?int $id;
+    private string $id;
 
     private string $email;
 
@@ -15,7 +16,14 @@ class User implements UserInterface
     /** @var string[] */
     private array $roles = [];
 
-    public function getId(): ?int
+    public function __construct(string $email, string $name)
+    {
+        $this->id = Uuid::v4();
+        $this->email = $email;
+        $this->name = $name;
+    }
+
+    public function getId(): string
     {
         return $this->id;
     }

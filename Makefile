@@ -17,3 +17,7 @@ phpunit:
 
 doctrine:
 	bin/console doctrine:schema:validate
+
+install:
+	composer install
+	yarn install
