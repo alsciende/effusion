@@ -20,6 +20,11 @@ class Identity
         $this->createdAt = time();
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getResourceOwner(): string
     {
         return $this->resourceOwner;
